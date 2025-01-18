@@ -1,21 +1,18 @@
 package com.tpe.dto;
 
+import com.tpe.domain.Book;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.persistence.Column;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-public class SaveBookDTO {
+@NoArgsConstructor
+public class BookDTO {
 
     @NotBlank(message = "Kitap ismi boşluk olamaz!!!")
     @NotNull(message = "Kitap ismi girilmelidir!!!")
@@ -29,14 +26,15 @@ public class SaveBookDTO {
     @NotBlank(message = "Lütfen yayın yılını giriniz!")
     private String publicationDate;
 
+    //book --> bookDTO
+    public BookDTO(Book book) {
 
-    @PostMapping
-    public ResponseEntity<String> createBook(@Valid @RequestBody SaveBookDTO bookDTO){
+        this.title = book.getTitle();
+        this.author = book.getAuthor();
+        this.publicationDate = book.getPublicationDate();
 
-        
-
-        return new ResponseEntity<>("Kitap başarıyla kaydedildi", HttpStatus.CREATED);//201
     }
+
 
 
 
