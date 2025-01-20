@@ -38,15 +38,15 @@ public class BookService {
     }
 
     //3-b
-    public Book getBookById(Long id){
-        Book book=bookRepository.findById(id).
-                orElseThrow(()->new BookNotFoundException("Book not found by id:" + id));
+    public Book getBookById(Long id) {
+        Book book = bookRepository.findById(id).
+                orElseThrow(() -> new BookNotFoundException("Book not found by id:" + id));
         return book;
     }
 
     //3-c
     public BookDTO getBookDTOById(Long id) {
-        Book book=getBookById(id);
+        Book book = getBookById(id);
         return new BookDTO(book);
         //alternatif:repositoryde JPQL ile doğrudan DTO objesi de döndürebiliriz.
     }
@@ -72,11 +72,20 @@ public class BookService {
 
     //8-b
     public void updateBook(Long id, BookDTO bookDTO) {
-        Book foundBook=getBookById(id);
+        Book foundBook = getBookById(id);
         foundBook.setTitle(bookDTO.getTitle());
         foundBook.setAuthor(bookDTO.getAuthor());
         foundBook.setPublicationDate(bookDTO.getPublicationDate());
         bookRepository.save(foundBook);//merge: update .. set ..
+    }
+
+    //9-b
+    public List<Book> filterBooksByAuthor(String author) {
+        List<Book> bookList = bookRepository.findByAuthorWithJPQL(author);
+        if (bookList.isEmpty()) {
+            throw new BookNotFoundException("Yazara ait kitap bulunamadı!");
+        }
+        return bookList;
     }
 }
 

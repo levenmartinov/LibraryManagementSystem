@@ -123,29 +123,29 @@ public class BookController {
     }
 
 
-
     //8- Update a Book With Using DTO
     // http://localhost:8080/books/update/2 + PUT(yer değiştirme)/PATCH(kısmi)
     @PatchMapping("/update/{id}")
-    public ResponseEntity<String> updateBook(@PathVariable("id") Long id,@Valid @RequestBody BookDTO bookDTO){
+    public ResponseEntity<String> updateBook(@PathVariable("id") Long id, @Valid @RequestBody BookDTO bookDTO) {
 
-        bookService.updateBook(id,bookDTO);
+        bookService.updateBook(id, bookDTO);
 
         return ResponseEntity.ok("Kitap başarıyla güncellendi...");
     }
 
 
+    //9- Get a Book By Its Author Using JPQL
+    // http://localhost:8080/books/a?author=AB + GET
+    @GetMapping("/a")
+    public ResponseEntity<List<Book>> getBooksByAuthor(@RequestParam("author") String author) {
 
+        List<Book> books = bookService.filterBooksByAuthor(author);
 
+        return ResponseEntity.ok(books);
+    }
 
-
-
-
-
-
-
-
-
+    //todo:exceptionhandler
+    //todo:id'si verilen hangi uyede?
 
 
 }
