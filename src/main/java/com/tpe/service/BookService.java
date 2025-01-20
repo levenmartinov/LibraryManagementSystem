@@ -5,6 +5,8 @@ import com.tpe.dto.BookDTO;
 import com.tpe.exception.BookNotFoundException;
 import com.tpe.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -54,4 +56,27 @@ public class BookService {
         getBookById(id);
         bookRepository.deleteById(id);
     }
+
+    //6-b
+    public List<Book> filterBooksByTitle(String title) {
+
+        return bookRepository.findByTitle(title);
+
+    }
+
+    //7-b
+    public Page<Book> getBooksByPage(Pageable pageable) {
+
+        return bookRepository.findAll(pageable);
+    }
+
+    //8-b
+    public void updateBook(Long id, BookDTO bookDTO) {
+        Book foundBook=getBookById(id);
+        foundBook.setTitle(bookDTO.getTitle());
+        foundBook.setAuthor(bookDTO.getAuthor());
+        foundBook.setPublicationDate(bookDTO.getPublicationDate());
+        bookRepository.save(foundBook);//merge: update .. set ..
+    }
 }
+
