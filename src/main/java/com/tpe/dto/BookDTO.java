@@ -26,16 +26,10 @@ public class BookDTO {
     @NotBlank(message = "Lütfen yayın yılını giriniz!")
     private String publicationDate;
 
-    //book --> bookDTO
-    public BookDTO(Book book) {
-
-        this.title = book.getTitle();
-        this.author = book.getAuthor();
-        this.publicationDate = book.getPublicationDate();
-
+    //book-->bookDTO
+    public BookDTO(Book book){
+        this.title= book.getTitle();
+        this.author=book.getAuthor();
+        this.publicationDate=book.getPublicationDate();
     }
-
-
-
-
 }

@@ -6,13 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.validation.constraints.Email;
 import java.util.Optional;
 
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
     //1-c
-    boolean existsByEmail(@Email(message = "Geçerli bir email giriniz!") String email);
+    boolean existsByEmail(String email);
 
     //3-c
     @Query("SELECT new com.tpe.dto.OwnerDTO(o) FROM Owner o WHERE o.id=:pId")

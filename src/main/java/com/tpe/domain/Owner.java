@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Owner {//one->Many
+public class Owner {//one->many
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class Owner {//one->Many
     private String phoneNumber;
 
     @Email(message = "Geçerli bir email giriniz!")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false,unique = true)
     private String email;
 
 
@@ -40,10 +40,10 @@ public class Owner {//one->Many
     private LocalDateTime registrationDate;
 
     @PrePersist//objeyi kaydetmeden hemen önce bu metod çağrılır
-    public void setRegistrationDateAuto() {
-        this.registrationDate = LocalDateTime.now();
+    public void setRegistrationDateAuto(){
+        this.registrationDate=LocalDateTime.now();
     }
 
     @OneToMany(mappedBy = "owner")
-    private List<Book> bookList = new ArrayList<>();
+    private List<Book> bookList=new ArrayList<>();
 }

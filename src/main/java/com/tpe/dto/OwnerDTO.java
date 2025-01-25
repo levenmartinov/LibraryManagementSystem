@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -24,12 +25,12 @@ public class OwnerDTO {
     @Email(message = "Geçerli bir email giriniz!")
     private String email;
 
-    //owner-->DTO
-    public OwnerDTO(Owner owner) {
-        this.name= owner.getName();
-        this.lastName = owner.getLastName();
-        this.phoneNumber = owner.getPhoneNumber();
-        this.email = owner.getEmail();
+    //owner->DTO
+    public OwnerDTO(Owner owner){
+        this.name=owner.getName();
+        this.lastName=owner.getLastName();
+        this.phoneNumber= owner.getPhoneNumber();
+        this.email= owner.getEmail();
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,44 +25,29 @@ public class OwnerController {
     // http://localhost:8080/owners+GET
     @RequestMapping("/owners")
     @GetMapping
-    public ResponseEntity<List<Owner>> getAllOwners() {
-        List<Owner> owners = ownerService.getAll();
+    public ResponseEntity<List<Owner>> getAllOwners(){
+        List<Owner> owners=ownerService.getAll();
         return ResponseEntity.ok(owners);
     }
-
-
 
     //1- Save an Owner
     // http://localhost:8080/owner/save + JSON + POST
     @RequestMapping("/owner/save")
     @PostMapping
-    public ResponseEntity<String> saveOwner(@RequestBody OwnerDTO ownerDTO){
+    public ResponseEntity<String> saveOwner(@Valid @RequestBody OwnerDTO ownerDTO){
 
         ownerService.saveOwner(ownerDTO);
 
-
-        return new ResponseEntity<>("Uye basarili bir sekilde olusturuldu.", HttpStatus.CREATED); //201
+        return new ResponseEntity<>("Üye başarılı bir şekilde oluşturuldu.", HttpStatus.CREATED);//201
     }
-
 
     //3- Find an Owner By ID
-    //http://localhost:8080/owner/2 + GET
-
-    @RequestMapping
+    // http://localhost:8080/owner/2 + GET
+    @RequestMapping("/owner/{id}")
     @GetMapping
-    public ResponseEntity<OwnerDTO> getOwnerById(Long id) {
-
-        OwnerDTO ownerDTO = ownerService.getOwnerDTOById(id);
-
+    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable("id") Long id){
+        OwnerDTO ownerDTO=ownerService.getOwnerDTOById(id);
         return ResponseEntity.ok(ownerDTO);
-
     }
-
-
-
-
-
-
-
 
 }

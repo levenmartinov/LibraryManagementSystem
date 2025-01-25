@@ -16,6 +16,15 @@ public class OwnerService {
 
     private final OwnerRepository ownerRepository;
 
+    //2-b
+    public List<Owner> getAll() {
+
+        List<Owner> owners=ownerRepository.findAll();
+        if (owners.isEmpty()){
+            throw new OwnerNotFoundException("Hiç üye bulunamadı!");
+        }
+        return owners;
+    }
 
     //1-b
     public void saveOwner(OwnerDTO ownerDTO) {
@@ -50,6 +59,4 @@ public class OwnerService {
         return ownerRepository.findById(id).
                 orElseThrow(()->new OwnerNotFoundException("Üye bulunamadı. ID : "+id));
     }
-
-
 }
