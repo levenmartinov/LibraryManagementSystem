@@ -144,8 +144,17 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
-    //todo:exceptionhandler
-    //todo:id'si verilen hangi uyede?
+    //10- Add a Book to an Owner
+    // http://localhost:8080/books/add?book=3&owner=1 + PATCH
+    @PatchMapping("/add")
+    public ResponseEntity<String> addBookToOwner(@RequestParam("book") Long bookId,
+                                                 @RequestParam("owner") Long ownerId) {
+
+        bookService.addBookToOwner(bookId, ownerId);
+
+        return ResponseEntity.ok("Kitap üyeye eklendi.");//200
+
+    }
 
 
 }

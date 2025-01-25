@@ -1,18 +1,21 @@
 package com.tpe.controller;
 
 import com.tpe.domain.Owner;
+import com.tpe.dto.OwnerDTO;
 import com.tpe.service.OwnerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class OwnerController {
+
+    //ResponseEntity:body(cevap) + status(200,300,400)
+    //MyResponse:response body + status + mesaj
 
     private final OwnerService ownerService;
 
@@ -25,6 +28,40 @@ public class OwnerController {
         List<Owner> owners = ownerService.getAll();
         return ResponseEntity.ok(owners);
     }
+
+
+
+    //1- Save an Owner
+    // http://localhost:8080/owner/save + JSON + POST
+    @RequestMapping("/owner/save")
+    @PostMapping
+    public ResponseEntity<String> saveOwner(@RequestBody OwnerDTO ownerDTO){
+
+        ownerService.saveOwner(ownerDTO);
+
+
+        return new ResponseEntity<>("Uye basarili bir sekilde olusturuldu.", HttpStatus.CREATED); //201
+    }
+
+
+    //3- Find an Owner By ID
+    //http://localhost:8080/owner/2 + GET
+
+    @RequestMapping
+    @GetMapping
+    public ResponseEntity<OwnerDTO> getOwnerById(Long id) {
+
+        OwnerDTO ownerDTO = ownerService.getOwnerDTOById(id);
+
+        return ResponseEntity.ok(ownerDTO);
+
+    }
+
+
+
+
+
+
 
 
 }
